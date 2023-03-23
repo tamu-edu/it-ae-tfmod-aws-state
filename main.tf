@@ -26,7 +26,7 @@ resource "aws_s3_bucket_public_access_block" "state" {
 }
 
 resource "aws_dynamodb_table" "state" {
-  name         = "terrraform-state-${data.aws_caller_identity.current.account_id}"
+  name         = "terraform-state-${data.aws_caller_identity.current.account_id}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
   attribute {
