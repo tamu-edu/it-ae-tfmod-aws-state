@@ -1,6 +1,45 @@
 # it-ae-tfmod-aws-state
 This is a terraform module for initializing a terraform state backend in AWS. 
 
+## Example usage
+
+A common pattern for using this is to create a folder within your main project named `terraform-state`. An example `main.tf` to use this is as follows:
+
+```
+module "state_backend" {
+  source = "github.com/tamu-edu/it-ae-tfmod-aws-state?ref=v0.0.2"
+}
+
+output "account_id" {
+  value = module.state_backend.account_id
+}
+
+output "backend_config" {
+  value = <<BACKENDCONFIG
+  backend "s3" {
+    region         = "${module.state_backend.region}"
+    bucket         = "${module.state_backend.bucket}"
+    key            = "terraform-state/main.tfstate"
+    dynamodb_table = "${module.state_backend.dynamodb_table}"
+  }
+  BACKENDCONFIG
+}
+```
+
+To execute, first you must login to the appropriate account. If on a Mac, it is recommended to use [granted](https://www.granted.dev/). Otherwise, you can use the AWS CLI. In any case, once logged in, run command `terraform init` in the folder where you have referenced the module. Then, run `terraform plan` to see what will be created. If satisfied with the results, run command `terraform apply`. This will create the appropriate S3 bucket and DynamoDB entries for holding state files for the main project. The state file for this will be stored on the file system. Be sure to capture the results of the output and copy it into your main Terraform stack. It is recommended to  alter the name of the key to fit the granularity of separation of concerns that you require.
+
+Consider adding the following to your `.gitignore` file
+
+```
+# .tfstate files
+*.tfstate
+*.tfstate.*
+!terraform-state/*.tfstate
+!terraform-state/*.tfstate.*
+```
+
+This will allow committing the actual .tfstate file but only for the state storage bucket.
+
 It creates an S3 bucket and a dynamodb table named `terraform-state-{account_id}` by default, which can be customized with inputs. 
 
 <!-- BEGIN_TF_DOCS -->
