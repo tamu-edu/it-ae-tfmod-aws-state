@@ -31,7 +31,7 @@ resource "aws_dynamodb_table" "state" {
 }
 
 output "region" {
-  value = data.aws_region.current.name
+  value = data.aws_region.current.region
 }
 
 output "account_id" {
