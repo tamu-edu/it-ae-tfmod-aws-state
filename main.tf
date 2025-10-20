@@ -46,4 +46,12 @@ output "dynamodb_table" {
   value = var.use_dynamodb ? aws_dynamodb_table.state[0].name : null
 }
 
+output "terraform_backend_config" {
+  value = templatefile("${path.module}/templates/backend.tftpl", {
+    account_id     = data.aws_caller_identity.current.account_id
+    use_s3_locking = local.use_s3_locking
+    bucket         = aws_s3_bucket.state.id
+    region         = data.aws_region.current.region
+    dynamodb_table = local.dynamodb_table_name
+  })
 }
