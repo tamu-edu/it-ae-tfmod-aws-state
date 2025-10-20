@@ -4,8 +4,14 @@ variable "bucket_name" {
   default     = null
 }
 
+variable "use_dynamodb" {
+  description = "Whether to create a DynamoDB table for storing the Terraform state lock. If false, S3 object locking will be used."
+  type        = bool
+  default     = false
+}
+
 variable "dynamodb_table_name" {
-  description = "The name of the DynamoDB table to create for storing the Terraform state lock"
+  description = "The name of the DynamoDB table to create for storing the Terraform state lock. If omitted, will autogenerate a name based on the AWS account ID."
   type        = string
   default     = null
 }
