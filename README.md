@@ -7,7 +7,7 @@ A common pattern for using this is to create a folder within your main project n
 
 ```
 module "state_backend" {
-  source = "github.com/tamu-edu/it-ae-tfmod-aws-state?ref=v0.0.4"
+  source = "github.com/tamu-edu/it-ae-tfmod-aws-state?ref=v1.0.0"
 
   bucket_name         = "my-terraform-state-bucket"
 }
