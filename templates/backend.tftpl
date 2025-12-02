@@ -1,16 +1,12 @@
 terraform {
-  %{ if use_s3_locking }
-    required_version = ">= 1.11"
-  %{ endif }
+%{ if use_s3_locking }    required_version = ">= 1.11"
+%{ endif }
   backend "s3" {
     allowed_account_ids = [ "${account_id}" ]
     region         = "${region}"
     bucket         = "${bucket}"
     key            = "terraform-state/main.tfstate"
-    %{ if !use_s3_locking }
-    dynamodb_table = "${dynamodb_table}"
-    %{ else }
-    use_lockfile = true
-    %{ endif }
-  }
+%{ if !use_s3_locking }    dynamodb_table = "${dynamodb_table}"
+%{ else }    use_lockfile = true
+%{ endif }  }
 }
