@@ -60,7 +60,7 @@ output "dynamodb_table" {
 }
 
 output "terraform_backend_config" {
-  description = "A terraform backend configuration template"
+  description = "A string containing the complete terraform backend specification"
   value = templatefile("${path.module}/templates/backend.tftpl", {
     account_id     = data.aws_caller_identity.current.account_id
     use_s3_locking = local.use_s3_locking
@@ -72,7 +72,7 @@ output "terraform_backend_config" {
 }
 
 output "terraform_backend_template" {
-  description = "A terraform backend configuration template"
+  description = "A string containing a partial terraform backend specification with a placeholder for the key"
   value = templatefile("${path.module}/templates/backend.tftpl", {
     account_id     = data.aws_caller_identity.current.account_id
     use_s3_locking = local.use_s3_locking
