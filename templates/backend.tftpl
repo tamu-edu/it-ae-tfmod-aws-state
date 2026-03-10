@@ -6,7 +6,7 @@ terraform {
     allowed_account_ids = [ "${account_id}" ]
     region         = "${region}"
     bucket         = "${bucket}"
-    key            = "terraform-state/main.tfstate"
+    key            = "${key}"
     %{ if !use_s3_locking }
     dynamodb_table = "${dynamodb_table}"
     %{ else }

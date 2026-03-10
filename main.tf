@@ -67,5 +67,6 @@ output "terraform_backend_config" {
     bucket         = aws_s3_bucket.state.id
     region         = data.aws_region.current.region
     dynamodb_table = local.dynamodb_table_name
+    key            = join("/", [var.key_path, var.key_name])
   })
 }
