@@ -60,12 +60,25 @@ output "dynamodb_table" {
 }
 
 output "terraform_backend_config" {
-  description = "A terraform backend configuration template"
+  description = "A string containing the complete terraform backend specification"
   value = templatefile("${path.module}/templates/backend.tftpl", {
     account_id     = data.aws_caller_identity.current.account_id
     use_s3_locking = local.use_s3_locking
     bucket         = aws_s3_bucket.state.id
     region         = data.aws_region.current.region
     dynamodb_table = local.dynamodb_table_name
+    key            = join("/", [var.key_path, var.key_name])
+  })
+}
+
+output "terraform_backend_template" {
+  description = "A string containing a partial terraform backend specification with a placeholder for the key"
+  value = templatefile("${path.module}/templates/backend.tftpl", {
+    account_id     = data.aws_caller_identity.current.account_id
+    use_s3_locking = local.use_s3_locking
+    bucket         = aws_s3_bucket.state.id
+    region         = data.aws_region.current.region
+    dynamodb_table = local.dynamodb_table_name
+    key            = "$${key}"
   })
 }

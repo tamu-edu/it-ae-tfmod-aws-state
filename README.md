@@ -85,6 +85,8 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name of the S3 bucket to create for storing the Terraform state | `string` | `null` | no |
 | <a name="input_dynamodb_table_name"></a> [dynamodb\_table\_name](#input\_dynamodb\_table\_name) | The name of the DynamoDB table to create for storing the Terraform state lock. If omitted, will autogenerate a name based on the AWS account ID. | `string` | `null` | no |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The name of the key where the statefile will be stored in the bucket. Appended to key\_path. | `string` | `"main.tfstate"` | no |
+| <a name="input_key_path"></a> [key\_path](#input\_key\_path) | Sets the path where the statefile will be stored in the bucket. The key\_name will be appended to this path. | `string` | `"terraform-state"` | no |
 | <a name="input_use_dynamodb"></a> [use\_dynamodb](#input\_use\_dynamodb) | Whether to create a DynamoDB table for storing the Terraform state lock. If false, S3 object locking will be used. | `bool` | `false` | no |
 
 ## Outputs
@@ -95,5 +97,6 @@ No modules.
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | The name of the S3 bucket created for storing the Terraform state |
 | <a name="output_dynamodb_table"></a> [dynamodb\_table](#output\_dynamodb\_table) | The name of the DynamoDB table created for storing the Terraform state lock, or null if not created |
 | <a name="output_region"></a> [region](#output\_region) | AWS region where state resources were created |
-| <a name="output_terraform_backend_config"></a> [terraform\_backend\_config](#output\_terraform\_backend\_config) | A terraform backend configuration template |
+| <a name="output_terraform_backend_config"></a> [terraform\_backend\_config](#output\_terraform\_backend\_config) | A string containing the complete terraform backend specification |
+| <a name="output_terraform_backend_template"></a> [terraform\_backend\_template](#output\_terraform\_backend\_template) | A string containing a partial terraform backend specification with a placeholder for the key |
 <!-- END_TF_DOCS -->
