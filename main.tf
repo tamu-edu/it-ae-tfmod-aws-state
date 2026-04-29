@@ -41,7 +41,7 @@ resource "aws_dynamodb_table" "state" {
 
 output "region" {
   description = "AWS region where state resources were created"
-  value       = data.aws_region.current.region
+  value       = data.aws_region.current.name
 }
 
 output "account_id" {
