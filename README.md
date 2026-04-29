@@ -56,13 +56,13 @@ This will allow committing the terraform state files for the setup folder while 
 ## Requirements
 
 | Name | Version |
-|------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| ---- | ------- |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0, < 7.0.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.17.0 |
 
 ## Modules
@@ -72,7 +72,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_dynamodb_table.state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_s3_bucket.state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_versioning.state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
@@ -82,7 +82,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name of the S3 bucket to create for storing the Terraform state | `string` | `null` | no |
 | <a name="input_dynamodb_table_name"></a> [dynamodb\_table\_name](#input\_dynamodb\_table\_name) | The name of the DynamoDB table to create for storing the Terraform state lock. If omitted, will autogenerate a name based on the AWS account ID. | `string` | `null` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The name of the key where the statefile will be stored in the bucket. Appended to key\_path. | `string` | `"main.tfstate"` | no |
@@ -92,7 +92,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_account_id"></a> [account\_id](#output\_account\_id) | AWS account ID where state resources were created |
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | The name of the S3 bucket created for storing the Terraform state |
 | <a name="output_dynamodb_table"></a> [dynamodb\_table](#output\_dynamodb\_table) | The name of the DynamoDB table created for storing the Terraform state lock, or null if not created |
