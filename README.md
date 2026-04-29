@@ -57,7 +57,7 @@ This will allow committing the terraform state files for the setup folder while 
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0, < 7.0.0 |
 
 ## Providers
 
