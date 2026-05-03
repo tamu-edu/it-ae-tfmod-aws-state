@@ -1,11 +1,12 @@
 # it-ae-tfmod-aws-state
+
 This is a terraform module for initializing a terraform state backend in AWS. It supports DynamoDB or S3 object locking for state locking and outputs a ready-to-use backend configuration to include in your main terraform code.
 
 ## Example usage
 
 A common pattern for using this is to create a folder within your main project named `terraform-state`. An example `main.tf` to use this is as follows:
 
-```
+```terraform
 module "state_backend" {
   source = "github.com/tamu-edu/it-ae-tfmod-aws-state?ref=v1.0.0"
 
@@ -15,21 +16,21 @@ module "state_backend" {
 
 To execute, first obtain credentials for an AWS account with permissions to create S3 buckets and [optionally] DynamoDB tables. Then run:
 
-```
+```bash
 terraform init
 terraform apply
 ```
 
 A common use pattern is to create a `setup` folder in your main project to create the state backend before running the rest of your terraform code. An example structure is as follows:
 
-```
+```bash
 /setup/main.tf  # Code to create the state backend
 /main.tf        # Your main terraform code
 ```
 
 When used this way, you can write the backend configuration in your main terraform code as follows:
 
-```
+```terraform
 resource "local_file" "write_parent_backend_config" {
   content  = module.state_backend.terraform_backend_config
   filename = "../tf_backend.tf"
@@ -39,9 +40,10 @@ resource "local_file" "write_parent_backend_config" {
 When no inputs are provided, the module will create an S3 bucket with a generated name based on the AWS account ID (`terraform-state-{account_id}`). It will not create a DynamoDB table, assuming S3 object locking will be used for state locking (as recommended by AWS and Hashicorp).
 
 ## .gitignore recommendation
+
 Consider adding the following to your `.gitignore` file, updating paths as necessary:
 
-```
+```gitignore
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -51,13 +53,13 @@ Consider adding the following to your `.gitignore` file, updating paths as neces
 
 This will allow committing the terraform state files for the setup folder while ignoring state files for the rest of your project.
 
-
 <!-- BEGIN_TF_DOCS -->
+
 ## Requirements
 
 | Name | Version |
 | ---- | ------- |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0, < 7.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6 |
 
 ## Providers
 
