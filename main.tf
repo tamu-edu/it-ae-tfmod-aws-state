@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0"
+      version = ">= 6"
     }
   }
 }
@@ -41,7 +41,7 @@ resource "aws_dynamodb_table" "state" {
 
 output "region" {
   description = "AWS region where state resources were created"
-  value       = data.aws_region.current.region
+  value       = data.aws_region.current.id
 }
 
 output "account_id" {
@@ -65,7 +65,7 @@ output "terraform_backend_config" {
     account_id     = data.aws_caller_identity.current.account_id
     use_s3_locking = local.use_s3_locking
     bucket         = aws_s3_bucket.state.id
-    region         = data.aws_region.current.region
+    region         = data.aws_region.current.id
     dynamodb_table = local.dynamodb_table_name
     key            = join("/", [var.key_path, var.key_name])
   })
@@ -77,7 +77,7 @@ output "terraform_backend_template" {
     account_id     = data.aws_caller_identity.current.account_id
     use_s3_locking = local.use_s3_locking
     bucket         = aws_s3_bucket.state.id
-    region         = data.aws_region.current.region
+    region         = data.aws_region.current.id
     dynamodb_table = local.dynamodb_table_name
     key            = "$${key}"
   })
